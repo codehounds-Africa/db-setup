@@ -18,12 +18,12 @@ services:
       - 'cassandra_data:/bitnami'
       - ./init/cassandra:/docker-entrypoint-initdb.d
     environment:
-      - CASSANDRA_SEEDS=cassandra
-      - CASSANDRA_SEEDS=cassandra
-      - CASSANDRA_DATACENTER=datacenter1
-      - CASSANDRA_CLUSTER_NAME=notificationCluster
+      - CASSANDRA_USER=${CASSANDRA_USER}
+      - CASSANDRA_SEEDS=${CASSANDRA_SEEDS}
+      - CASSANDRA_DATACENTER=${CASSANDRA_DATACENTER}
+      - CASSANDRA_CLUSTER_NAME=${CASSANDRA_CLUSTER_NAME}
       - CASSANDRA_PASSWORD_SEEDER=yes
-      - CASSANDRA_PASSWORD=cassandra
+      - CASSANDRA_PASSWORD=${CASSANDRA_PASSWORD}
 volumes:
   rabbitmq_data:
     driver: local
