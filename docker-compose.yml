@@ -2,6 +2,7 @@ version: '3'
 
 services:
   rabbitmq:
+    restart: always
     image: bitnami/rabbitmq:latest
     ports:
       - '5672:5672'
@@ -11,6 +12,7 @@ services:
     volumes:
       - 'rabbitmq_data:/bitnami'
   cassandra:
+    restart: always
     image: 'bitnami/cassandra:latest'
     ports:
       - '9042:9042'
@@ -24,8 +26,19 @@ services:
       - CASSANDRA_CLUSTER_NAME=${CASSANDRA_CLUSTER_NAME}
       - CASSANDRA_PASSWORD_SEEDER=yes
       - CASSANDRA_PASSWORD=${CASSANDRA_PASSWORD}
+  redis:
+    restart: always
+    image: redis:5.0.7-alpine
+    command: ["redis-server", "--appendonly", "yes"]
+    hostname: redis
+    ports:
+      - '6379:6379'
+    volumes:
+      - redis-data:/data
 volumes:
   rabbitmq_data:
     driver: local
   cassandra_data:
+    driver: local
+  redis-data:
     driver: local
